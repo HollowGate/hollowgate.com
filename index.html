@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HollowGate — Games in Development</title>
+  <meta name="description" content="HollowGate — Independent game studio building stylish, system-driven worlds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0d10;
+      --panel: #12161b;
+      --ink: #e8edf2;
+      --muted: #9aa7b4;
+      --brand: #67b0ff;
+      --brand-2: #8a5cff;
+      --ok: #38d996;
+      --warn: #ffb84d;
+      --grid: 12px;
+      --radius-xl: 20px;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:radial-gradient(1200px 800px at 80% -10%, rgba(103,176,255,.08), transparent 60%), radial-gradient(1000px 700px at 10% -10%, rgba(138,92,255,.08), transparent 55%), var(--bg);
+      line-height:1.6; letter-spacing:.2px;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1200px; margin:0 auto; padding:calc(var(--grid)*4) calc(var(--grid)*2)}
+    header{
+      position:sticky; top:0; z-index:40; backdrop-filter: blur(8px); background:linear-gradient(180deg, rgba(11,13,16,.85), rgba(11,13,16,.55)); border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; gap:var(--grid); justify-content:space-between; padding:calc(var(--grid)*1.5) 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.5px}
+    .brand-badge{
+      width:34px; height:34px; border-radius:10px; background: conic-gradient(from 210deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow);
+      display:grid; place-items:center; font-size:18px; font-weight:800; color:#091016;
+    }
+    .brand-name{font-size:18px}
+    .nav-actions{display:flex; gap:8px}
+    .btn{padding:10px 14px; border-radius:12px; background:#1a2129; border:1px solid rgba(255,255,255,.08); color:var(--ink); display:inline-flex; align-items:center; gap:8px}
+    .btn.primary{background:linear-gradient(180deg, rgba(103,176,255,.25), rgba(103,176,255,.12)); border-color:rgba(103,176,255,.4)}
+    .btn:hover{transform:translateY(-1px)}
+    .hero{padding:calc(var(--grid)*5) 0 calc(var(--grid)*4);}
+    .pill{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:var(--muted); font-size:12px}
+    .pill .dot{width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 10px rgba(56,217,150,.7)}
+    .hero h1{font-size:clamp(28px, 4vw, 44px); line-height:1.15; margin:.6em 0 .4em; letter-spacing:.3px}
+    .hero p{max-width:780px; color:var(--muted)}
+    .hero-cta{display:flex; gap:10px; margin-top:18px}
+    section{margin-top:calc(var(--grid)*5)}
+    .section-head{display:flex; align-items:end; justify-content:space-between; margin-bottom:16px}
+    .section-head h2{font-size:clamp(20px, 3vw, 28px); margin:0}
+    .section-head .muted{color:var(--muted); font-size:14px}
+    .grid{display:grid; gap:12px}
+    @media(min-width:640px){ .grid{grid-template-columns:repeat(2, 1fr)} }
+    @media(min-width:960px){ .grid{grid-template-columns:repeat(3, 1fr)} }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow)}
+    .card .thumb{aspect-ratio:16/9; background:linear-gradient(135deg, rgba(103,176,255,.22), rgba(138,92,255,.22)); display:grid; place-items:center; font-weight:800; color:#0c1116; letter-spacing:.5px}
+    .card .body{padding:14px}
+    .tag{display:inline-block; font-size:11px; color:#0c1116; background:var(--brand); padding:6px 10px; border-radius:999px; font-weight:700; letter-spacing:.3px}
+    .tag.dev{background:var(--warn)}
+    .card h3{margin:.6em 0 .2em; font-size:18px}
+    .card p{color:var(--muted); margin:0}
+    .row-actions{display:flex; justify-content:flex-end; margin-top:10px}
+    .team{display:grid; gap:12px}
+    @media(min-width:760px){ .team{grid-template-columns:repeat(3, 1fr)} }
+    .person{display:flex; gap:14px; padding:14px; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); align-items:center; box-shadow:var(--shadow)}
+    .avatar{width:56px; height:56px; border-radius:14px; background:linear-gradient(135deg, rgba(103,176,255,.4), rgba(138,92,255,.4)); display:grid; place-items:center; font-weight:800; color:#0c1116}
+    .person .meta{display:flex; flex-direction:column}
+    .person .role{font-size:12px; color:var(--muted)}
+    footer{margin-top:calc(var(--grid)*6); padding:calc(var(--grid)*3) 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
+    .footer-grid{display:grid; gap:10px}
+    @media(min-width:760px){ .footer-grid{grid-template-columns:2fr 1fr 1fr} }
+    .small{font-size:12px; color:var(--muted)}
+    .ghost{opacity:.7}
+    .spacer{height:6px}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; padding:2px 6px; border-radius:6px; background:#0f141a; border:1px solid rgba(255,255,255,.08)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <div class="brand-badge">H</div>
+        <div class="brand-name">HollowGate</div>
+      </a>
+      <nav class="nav-actions">
+        <a class="btn" href="#featured">Games</a>
+        <a class="btn" href="#dev">In Development</a>
+        <a class="btn" href="#team">Team</a>
+        <a class="btn primary" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container" aria-labelledby="now-heading">
+      <span class="pill"><span class="dot"></span> Now — August 2025</span>
+      <h1 id="now-heading">Independent game studio crafting stylish, system‑driven worlds.</h1>
+      <p>Welcome to HollowGate. This is a lightweight placeholder while we build out the full site. You’ll find a small selection of featured titles, a peek at what’s in development, and a way to reach us.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#featured">Browse Featured Games</a>
+        <a class="btn" href="#dev">See What We're Building</a>
+      </div>
+    </section>
+
+    <section id="featured" class="container" aria-labelledby="featured-heading">
+      <div class="section-head">
+        <h2 id="featured-heading">Featured Games</h2>
+        <a class="small" href="#all-products">See all products →</a>
+      </div>
+      <div class="grid">
+        <article class="card" aria-label="Game One">
+          <div class="thumb">GAME • 01</div>
+          <div class="body">
+            <span class="tag">Available</span>
+            <h3>Project Aegis</h3>
+            <p class="ghost">A tight, replayable survival sandbox with stylized realism.</p>
+          </div>
+        </article>
+        <article class="card" aria-label="Game Two">
+          <div class="thumb">GAME • 02</div>
+          <div class="body">
+            <span class="tag">Available</span>
+            <h3>Echo Drift</h3>
+            <p class="ghost">Arcade roguelite built around elegant, readable chaos.</p>
+          </div>
+        </article>
+        <article class="card" aria-label="Game Three">
+          <div class="thumb">GAME • 03</div>
+          <div class="body">
+            <span class="tag">Available</span>
+            <h3>Obsidian March</h3>
+            <p class="ghost">Squad tactics, emergent storylines, and crunchy systems.</p>
+          </div>
+        </article>
+      </div>
+      <div class="row-actions">
+        <a class="btn" href="#all-products" aria-label="See all products">See all products</a>
+      </div>
+    </section>
+
+    <section id="dev" class="container" aria-labelledby="dev-heading">
+      <div class="section-head">
+        <h2 id="dev-heading">In Development</h2>
+        <div class="muted small">Peek at active projects and prototypes</div>
+      </div>
+      <div class="grid">
+        <article class="card" aria-label="Dev One">
+          <div class="thumb">DEV • 01</div>
+          <div class="body">
+            <span class="tag dev">Prototype</span>
+            <h3>World Weave: Demo Valley</h3>
+            <p class="ghost">Hybrid RTS/sim focusing on emergent NPC behavior and grounded survival.</p>
+          </div>
+        </article>
+        <article class="card" aria-label="Dev Two">
+          <div class="thumb">DEV • 02</div>
+          <div class="body">
+            <span class="tag dev">Pre‑Production</span>
+            <h3>Deep Desert Control Room</h3>
+            <p class="ghost">Interactive map tool for guild coordination and resource planning.</p>
+          </div>
+        </article>
+        <article class="card" aria-label="Dev Three">
+          <div class="thumb">DEV • 03</div>
+          <div class="body">
+            <span class="tag dev">R&amp;D</span>
+            <h3>Parametric Characters</h3>
+            <p class="ghost">Modular, performant character system with LODs and blend shapes.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="team" class="container" aria-labelledby="team-heading">
+      <div class="section-head">
+        <h2 id="team-heading">Meet the Team</h2>
+        <div class="muted small">Small team. Big systems.</div>
+      </div>
+      <div class="team">
+        <div class="person">
+          <div class="avatar">DF</div>
+          <div class="meta">
+            <strong>Duncan Faulkner</strong>
+            <span class="role">Founder / Systems Design</span>
+          </div>
+        </div>
+        <div class="person">
+          <div class="avatar">UX</div>
+          <div class="meta">
+            <strong>You?</strong>
+            <span class="role">UI/UX • Contract</span>
+          </div>
+        </div>
+        <div class="person">
+          <div class="avatar">3D</div>
+          <div class="meta">
+            <strong>Open Roles</strong>
+            <span class="role">3D Artist • Tech Art</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container" aria-labelledby="contact-heading">
+      <div class="section-head">
+        <h2 id="contact-heading">Contact</h2>
+        <div class="muted small">Business & press inquiries</div>
+      </div>
+      <div class="card" style="padding:16px">
+        <p>For partnerships, press, or hiring, email <a href="mailto:contact@hollowgate.com">contact@hollowgate.com</a>.</p>
+        <div class="spacer"></div>
+        <p class="small">Socials coming soon. In the meantime, reserve <span class="kbd">@HollowGate</span> / <span class="kbd">@HollowGateHQ</span> where available.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:10px">
+          <div class="brand-badge">H</div>
+          <div class="brand-name">HollowGate</div>
+        </div>
+        <div class="small">© <span id="y"></span> HollowGate. All rights reserved.</div>
+      </div>
+      <div>
+        <div class="small"><a href="#top">Back to top ↑</a></div>
+        <div class="small"><a href="#featured">Featured</a></div>
+        <div class="small"><a href="#dev">In Development</a></div>
+      </div>
+      <div>
+        <div class="small"><a href="#team">Team</a></div>
+        <div class="small"><a href="#contact">Contact</a></div>
+        <div class="small"><span class="ghost">Privacy • Terms (coming soon)</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
